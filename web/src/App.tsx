@@ -17,7 +17,9 @@ function App() {
   const [games, setGames] = useState<Game[]>([])
 
   useEffect(() => {
-    axios("http://localhost:3333/games").then(response => setGames(response.data))
+    axios(`${import.meta.env.DATABASE_DOMAIN || "http://localhost:3333"}/games`).then(response =>
+      setGames(response.data)
+    )
   }, [])
 
   return (

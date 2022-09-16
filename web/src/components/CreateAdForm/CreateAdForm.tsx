@@ -19,7 +19,9 @@ export const CreateAdForm = () => {
   const [gamesInput, setGamesInput] = useState("")
 
   useEffect(() => {
-    axios("http://localhost:3333/games").then(response => setGames(response.data))
+    axios(`${import.meta.env.DATABASE_DOMAIN || "http://localhost:3333"}/games`).then(response =>
+      setGames(response.data)
+    )
   }, [])
 
   async function handleCreateAd(e: FormEvent) {
@@ -32,17 +34,19 @@ export const CreateAdForm = () => {
     if (!data.name) {
       return
     }
-
     try {
-      await axios.post(`http://localhost:3333/games/${gamesInput}/ads`, {
-        name: data.name,
-        yearsPlaying: Number(data.yearsPlaying),
-        discord: data.discord,
-        weekDays: weekDays.map(Number),
-        hourStart: data.hourStart,
-        hourEnd: data.hourEnd,
-        useVoiceChannel
-      })
+      await axios.post(
+        `${import.meta.env.DATABASE_DOMAIN}/games/${gamesInput}/ads` || `http://localhost:3333/games/${gamesInput}/ads`,
+        {
+          name: data.name,
+          yearsPlaying: Number(data.yearsPlaying),
+          discord: data.discord,
+          weekDays: weekDays.map(Number),
+          hourStart: data.hourStart,
+          hourEnd: data.hourEnd,
+          useVoiceChannel
+        }
+      )
       alert("Ad Posted Successfully")
     } catch (err) {
       console.log(err)
