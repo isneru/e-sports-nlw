@@ -19,7 +19,7 @@ export const CreateAdForm = () => {
   const [gamesInput, setGamesInput] = useState("")
 
   useEffect(() => {
-    axios(`${import.meta.env.DATABASE_DOMAIN || "http://localhost:3333"}/games`).then(response =>
+    axios(`${import.meta.env.DATABASE_DOMAIN}/games` || "http://localhost:3333/games").then(response =>
       setGames(response.data)
     )
   }, [])
