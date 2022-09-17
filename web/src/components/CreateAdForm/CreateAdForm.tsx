@@ -19,7 +19,7 @@ export const CreateAdForm = () => {
   const [gamesInput, setGamesInput] = useState("")
 
   useEffect(() => {
-    axios(`${import.meta.env.DATABASE_DOMAIN}/games` || "http://localhost:3333/games").then(response =>
+    axios(`${import.meta.env.VITE_API_DATABASE_DOMAIN}/games` || "http://localhost:3333/games").then(response =>
       setGames(response.data)
     )
   }, [])
@@ -36,7 +36,8 @@ export const CreateAdForm = () => {
     }
     try {
       await axios.post(
-        `${import.meta.env.DATABASE_DOMAIN}/games/${gamesInput}/ads` || `http://localhost:3333/games/${gamesInput}/ads`,
+        `${import.meta.env.VITE_API_DATABASE_DOMAIN}/games/${gamesInput}/ads` ||
+          `http://localhost:3333/games/${gamesInput}/ads`,
         {
           name: data.name,
           yearsPlaying: Number(data.yearsPlaying),
